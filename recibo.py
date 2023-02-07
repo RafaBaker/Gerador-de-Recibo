@@ -10,7 +10,7 @@ from num2words import num2words
 ctrl = 1
 
 #Definindo a função
-def geradorRecibo(inquilino, endereco, tipo, valor, mes, vencimento):
+def geradorRecibo(inquilino, endereco, tipo, v, mes, vencimento):
     doc = docx.Document('recibo_branco.docx')
     
     num_ext = num2words(v, lang="pt-br")
