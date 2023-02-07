@@ -9,14 +9,6 @@ from num2words import num2words
 #Declarando variáveis
 ctrl = 1
 
-# inquilino = 'Rafael'
-# endereco = 'Rua Noemi Costa'
-# tipo = 'Residencial'
-# v = '999.00'
-# num_ext = num2words(v, lang="pt-br")
-# mes = 'Setembro'
-# vencimento = '13/09'
-
 #Definindo a função
 def geradorRecibo(inquilino, endereco, tipo, valor, mes, vencimento):
     doc = docx.Document('recibo_branco.docx')
