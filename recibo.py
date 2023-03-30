@@ -80,10 +80,20 @@ def geradorRecibo(inquilino, endereco, tipo, v, mes, vencimento):
     #Salvando o documento
     doc.save(f'recibo_{inquilino}_{mes}.docx')
 
+
+#função para o tipo do imóvel
+def setTipo(v):
+    dic_tipo = {1:"Residencial",
+                  2:"Comercial"}
+    tipo = dic_tipo[v]
+    return tipo
+
+#Executando o código
 while ctrl == 1:
     inq = input("Inquilino: ")
     address = input("Endereco: ")
-    tipo = int(input("Tipo [1- Residencial/ 2- Comercial]"))
+    tipo = int(input("Tipo [1- Residencial/ 2- Comercial] "))
+    tipo = setTipo(tipo)
     v = int(input("Valor: "))
     mes = input("Mês: ")
     vencimento = input("Vencimento: ")
@@ -92,7 +102,8 @@ while ctrl == 1:
     #Chamando a função
     geradorRecibo(inq, address, tipo, v, mes, vencimento)
     
-    p = input("Deseja gerar outro recibo? [s/n]").lower()
+    p = input("Deseja gerar outro recibo? [s/n] ").lower()
     
     if p == "n":
         ctrl = 0
+        
