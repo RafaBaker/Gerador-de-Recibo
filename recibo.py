@@ -6,9 +6,6 @@ from docx.shared import Inches
 #Biblioteca para escrever números por extenso
 from num2words import num2words
 
-#Declarando variáveis
-ctrl = 1
-
 #Definindo a função
 def geradorRecibo(inquilino, endereco, tipo, v, mes, vencimento):
     doc = docx.Document('recibo_branco.docx')
@@ -36,7 +33,7 @@ def geradorRecibo(inquilino, endereco, tipo, v, mes, vencimento):
     p.add_run().add_break()
 
     p.add_run('A quantia de ')
-    p.add_run(f'R${v}').bold = True
+    p.add_run(f'R${v:.2f}').bold = True
     p.add_run(f' ({num_ext}),').bold = True
 
     p.add_run().add_break()
@@ -79,31 +76,76 @@ def geradorRecibo(inquilino, endereco, tipo, v, mes, vencimento):
 
     #Salvando o documento
     doc.save(f'recibo_{inquilino}_{mes}.docx')
+    
+    #mensagem de concluído
+    print("Recibo gerado!")
 
 
 #função para o tipo do imóvel
 def setTipo(v):
-    dic_tipo = {1:"Residencial",
-                  2:"Comercial"}
+    dic_tipo = {1:"residencial",
+                2:"comercial"}
     tipo = dic_tipo[v]
     return tipo
 
-#Executando o código
-while ctrl == 1:
-    inq = input("Inquilino: ")
-    address = input("Endereco: ")
-    tipo = int(input("Tipo [1- Residencial/ 2- Comercial] "))
-    tipo = setTipo(tipo)
-    v = int(input("Valor: "))
-    mes = input("Mês: ")
-    vencimento = input("Vencimento: ")
+#função para escrever o mês do ano
+def setMes(m):
+    meses = {1: "janeiro",
+             2: "fevereiro",
+             3: "março",
+             4: "abril",
+             5: "maio",
+             6: "junho",
+             7: "julho",
+             8: "agosto",
+             9: "setembro",
+             10: "outubro",
+             11: "novembro",
+             12: "dezembro",}
     
+    m = meses[m]
     
-    #Chamando a função
-    geradorRecibo(inq, address, tipo, v, mes, vencimento)
+    return m
+
+#Módulo principal
+def main():
     
-    p = input("Deseja gerar outro recibo? [s/n] ").lower()
+    #Declarando variáveis
+    ctrl = int(1)
+    inq = str()
+    address = str()
+    tipo = int()
+    v = int()
     
-    if p == "n":
-        ctrl = 0
+    #Interface amigável no terminal
+    print("\033[36m="*40)
+    string = "GERADOR DE RECIBO!"
+    print(" "*11 + string + " "*11)
+    print("="*40)
+    
+    #inicio do loop while
+    while ctrl == 1:
+        try:
+            inq = input("Inquilino: ")
+            if not inq.isalpha():
+                raise TypeError("Somente letras são permitidas.")
+            address = input("Endereco: ")
+            tipo = int(input("Tipo [1- Residencial/ 2- Comercial] "))
+            v = float(input("Valor: "))
+            mes = int(input("Mês [Número]: "))
+            vencimento = input("Vencimento: ")
+        except:
+            print("Valor Inválido! Tente novamente.")
+        else:
+            #Chamando as funções
+            tipo = setTipo(tipo)
+            mes = setMes(mes)
+            geradorRecibo(inq, address, tipo, v, mes, vencimento)
+
+            p = input("Deseja gerar outro recibo? [s/n] ").lower()
         
+            if p == "n":
+                ctrl = 0
+
+if __name__ == "__main__":
+    main()
