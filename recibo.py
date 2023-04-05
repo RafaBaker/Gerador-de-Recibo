@@ -118,7 +118,7 @@ def main():
     v = int()
     
     #Interface amigável no terminal
-    print("\033[36m="*40)
+    print("="*40)
     string = "GERADOR DE RECIBO!"
     print(" "*11 + string + " "*11)
     print("="*40)
