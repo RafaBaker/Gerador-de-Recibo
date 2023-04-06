@@ -33,7 +33,7 @@ def geradorRecibo(inquilino, endereco, tipo, v, mes, vencimento):
     p.add_run().add_break()
 
     p.add_run('A quantia de ')
-    p.add_run(f'R${v:.2f}').bold = True
+    p.add_run(f'R$ {v:.2f}').bold = True
     p.add_run(f' ({num_ext}),').bold = True
 
     p.add_run().add_break()
@@ -52,6 +52,14 @@ def geradorRecibo(inquilino, endereco, tipo, v, mes, vencimento):
 
     p.add_run('Com vencimento em ')
     p.add_run(f'{vencimento}',).bold = True
+    
+    p.add_run().add_break()
+    p.add_run().add_break()
+    
+    p.add_run('Emitente responsável: ')
+    p.add_run('Rodrigo Moura Matos, ').bold = True
+    p.add_run('portador do CPF ')
+    p.add_run('046.134.407-69')
 
     #Espaçamento
     p.add_run().add_break()
@@ -67,11 +75,11 @@ def geradorRecibo(inquilino, endereco, tipo, v, mes, vencimento):
 
     #Estilizando
     for r in p.runs:
-        r.font.size = Pt(16)
+        r.font.size = Pt(14)
         r.font.name = 'Arial'
 
     for r in sig.runs:
-        r.font.size = Pt(16)
+        r.font.size = Pt(14)
         r.font.name = 'Arial'
 
     #Salvando o documento
